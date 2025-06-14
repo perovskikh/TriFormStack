@@ -3,14 +3,13 @@ FROM node:18-alpine AS builder
 
 WORKDIR /app
 
-# Копируем зависимости
-COPY package*.json ./
-COPY .npmrc ./
+# Сначала копируем только package файлы для оптимизации кэша
+COPY package.json package-lock.json ./
 
-# Устанавливаем зависимости
-RUN npm install
+# Устанавливаем зависимости с очисткой кэша
+RUN npm ci --silent && npm cache clean --force
 
-# Копируем исходный код
+# Копируем остальные файлы
 COPY . .
 
 # Собираем приложение
@@ -26,6 +25,9 @@ COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/node_modules ./node_modules
+
+# Уменьшаем размер образа
+RUN rm -rf /app/node_modules/.cache
 
 # Порт и команда запуска
 EXPOSE 3000
