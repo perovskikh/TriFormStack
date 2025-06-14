@@ -56,9 +56,17 @@
 git clone <repository-url>
 cd triformstack
 
-# Запустите все сервисы
-docker-compose up -d
+# Собрать и запустить все сервисы (с очисткой кэша для фронтенда)
+docker compose down && docker compose build --no-cache frontend && docker compose up
+
+# Или просто запустить сервисы (если уже собраны)
+docker compose up -d
 ```
+
+> Примечание:
+> - Первая команда полностью пересобирает фронтенд с очисткой кэша
+> - Вторая команда просто запускает уже собранные сервисы
+> - Используйте `docker compose` (без дефиса) для современных версий Docker
 
 ### Ручная установка
 
