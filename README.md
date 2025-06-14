@@ -74,9 +74,15 @@ uvicorn main:app --reload
 #### Frontend
 ```bash
 cd frontend
-npm install
+npm install  # Устанавливает зависимости и создает package-lock.json
 npm run dev
 ```
+
+> **Важно про package-lock.json**:
+> - Этот файл автоматически генерируется при первом запуске `npm install`
+> - Он фиксирует точные версии зависимостей для воспроизводимости сборок
+> - В Docker-сборке используется `npm install --package-lock` для его создания
+> - Для разработки просто запустите `npm install` в папке frontend один раз
 
 #### Telegram Bot
 ```bash
