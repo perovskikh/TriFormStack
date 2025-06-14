@@ -3,17 +3,11 @@ FROM node:18-alpine AS builder
 
 WORKDIR /app
 
-# Сначала копируем package.json
+# Копируем package.json
 COPY package.json ./
 
-# Устанавливаем зависимости
-RUN npm install
-
-# Затем копируем package-lock.json (если существует)
-COPY package-lock.json ./
-
-# Устанавливаем зависимости с очисткой кэша
-RUN npm ci --silent && npm cache clean --force
+# Устанавливаем зависимости и создаем package-lock.json
+RUN npm install --package-lock && npm cache clean --force
 
 # Копируем остальные файлы
 COPY . .
