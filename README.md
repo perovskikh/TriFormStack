@@ -72,11 +72,19 @@ uvicorn main:app --reload
 ```
 
 #### Frontend
+1. Установка зависимостей (создает package-lock.json):
 ```bash
-cd frontend
-npm install  # Устанавливает зависимости и создает package-lock.json
-npm run dev
+cd frontend && npm install && cd ..
 ```
+2. Запуск dev-сервера:
+```bash
+cd frontend && npm run dev
+```
+
+> Примечание: package-lock.json нужен для:
+> - Контроля версий зависимостей
+> - Быстрой установки одинаковых версий в CI/CD и Docker
+> - Избежания проблем с несовместимостью версий
 
 > **Важно про package-lock.json**:
 > - Этот файл автоматически генерируется при первом запуске `npm install`
