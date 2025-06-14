@@ -3,8 +3,14 @@ FROM node:18-alpine AS builder
 
 WORKDIR /app
 
-# Сначала копируем только package файлы для оптимизации кэша
-COPY package.json package-lock.json ./
+# Сначала копируем package.json
+COPY package.json ./
+
+# Устанавливаем зависимости
+RUN npm install
+
+# Затем копируем package-lock.json (если существует)
+COPY package-lock.json ./
 
 # Устанавливаем зависимости с очисткой кэша
 RUN npm ci --silent && npm cache clean --force

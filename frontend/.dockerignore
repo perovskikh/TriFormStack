@@ -1,9 +1,10 @@
-node_modules
-.next
-.DS_Store
-*.log
-.env*
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-/.next/cache
+# Исключаем всё кроме необходимого для сборки
+*
+!package.json
+!package-lock.json
+!public/
+!src/
+!next.config.js
+!postcss.config.js
+!tailwind.config.js
+!tsconfig.json
